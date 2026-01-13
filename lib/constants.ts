@@ -7,7 +7,6 @@ import {
   Building2,
   Cpu,
   Car,
-  MapPin,
   Plane,
   ShoppingBag,
   TreePine
@@ -15,7 +14,7 @@ import {
 import { Feature, FloorPlan, LocationHighlight, NavigationLink } from '@/types';
 
 export const SITE_NAME = 'Serenity Heights';
-export const SITE_TAGLINE = 'Where Luxury Meets Tranquility';
+export const SITE_TAGLINE = 'Where elegance finds its home.';
 
 export const NAV_LINKS: NavigationLink[] = [
   { label: 'Residences', href: '#features' },
@@ -28,50 +27,50 @@ export const NAV_LINKS: NavigationLink[] = [
 export const FEATURES: Feature[] = [
   {
     id: 'pool',
-    title: 'Infinity Pool & Spa',
-    description: 'Panoramic rooftop infinity pool with private cabanas and full-service spa facilities.',
+    title: 'Infinity Pool',
+    description: 'Rooftop sanctuary above the skyline.',
     icon: Waves,
   },
   {
     id: 'cinema',
     title: 'Private Cinema',
-    description: 'State-of-the-art screening room with premium seating for exclusive movie nights.',
+    description: 'Cinematic excellence, redefined.',
     icon: Film,
   },
   {
     id: 'wine',
     title: 'Wine Cellar',
-    description: 'Temperature-controlled wine cellar with private tasting room for connoisseurs.',
+    description: 'For the discerning palate.',
     icon: Wine,
   },
   {
     id: 'fitness',
-    title: 'Fitness Center',
-    description: 'World-class gym equipment with personal training and wellness programs.',
+    title: 'Wellness Center',
+    description: 'Elevate your well-being.',
     icon: Dumbbell,
   },
   {
     id: 'concierge',
     title: '24/7 Concierge',
-    description: 'Dedicated concierge team available around the clock to fulfill your every need.',
+    description: 'Every wish, fulfilled.',
     icon: ConciergeBell,
   },
   {
     id: 'smart',
-    title: 'Smart Home',
-    description: 'Cutting-edge home automation systems for seamless control of your residence.',
+    title: 'Smart Living',
+    description: 'Intuitive automation.',
     icon: Cpu,
   },
   {
     id: 'parking',
-    title: 'Private Parking',
-    description: 'Secure underground parking with electric vehicle charging stations.',
+    title: 'Private Garage',
+    description: 'Secure. Electric-ready.',
     icon: Car,
   },
   {
     id: 'terrace',
-    title: 'Rooftop Terrace',
-    description: 'Expansive rooftop garden with stunning city views and outdoor lounges.',
+    title: 'Sky Gardens',
+    description: 'Nature meets panorama.',
     icon: Building2,
   },
 ];
@@ -84,7 +83,7 @@ export const FLOOR_PLANS: FloorPlan[] = [
     sqft: '1,800 sq ft',
     bedrooms: 2,
     bathrooms: 2,
-    price: '$1.2M',
+    price: 'From $1.2M',
   },
   {
     id: 'residence',
@@ -93,7 +92,7 @@ export const FLOOR_PLANS: FloorPlan[] = [
     sqft: '2,800 sq ft',
     bedrooms: 3,
     bathrooms: 3,
-    price: '$2.4M',
+    price: 'From $2.4M',
   },
   {
     id: 'penthouse',
@@ -102,26 +101,26 @@ export const FLOOR_PLANS: FloorPlan[] = [
     sqft: '5,200 sq ft',
     bedrooms: 4,
     bathrooms: 5,
-    price: '$4.5M',
+    price: 'From $4.5M',
   },
 ];
 
 export const LOCATION_HIGHLIGHTS: LocationHighlight[] = [
   {
     id: 'downtown',
-    name: 'Downtown Financial District',
-    distance: '5 min drive',
+    name: 'Financial District',
+    distance: '5 min',
     icon: Building2,
   },
   {
     id: 'airport',
     name: 'International Airport',
-    distance: '20 min drive',
+    distance: '20 min',
     icon: Plane,
   },
   {
     id: 'shopping',
-    name: 'Luxury Shopping District',
+    name: 'Luxury Shopping',
     distance: '3 min walk',
     icon: ShoppingBag,
   },

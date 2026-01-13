@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { fadeInUp } from '@/lib/animations';
-import { NAV_LINKS, SITE_NAME, SITE_TAGLINE } from '@/lib/constants';
+import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 
 export function Footer() {
@@ -14,50 +14,50 @@ export function Footer() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           variants={fadeInUp}
           className="grid gap-12 lg:grid-cols-4"
         >
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <h3 className="font-serif text-2xl text-white mb-4">{SITE_NAME}</h3>
-            <p className="text-text-muted text-sm leading-relaxed mb-6">
-              {SITE_TAGLINE}
+            <h3 className="font-serif text-2xl text-white mb-4 font-light">{SITE_NAME}</h3>
+            <p className="text-text-muted text-sm leading-relaxed mb-6 font-light">
+              Where elegance finds its home.
             </p>
             <div className="flex gap-4">
               <a
                 href="#"
-                className="text-text-muted hover:text-gold transition-colors duration-300"
+                className="text-text-muted hover:text-gold transition-colors duration-500"
                 aria-label="Instagram"
               >
-                <Instagram size={20} />
+                <Instagram size={20} strokeWidth={1.5} />
               </a>
               <a
                 href="#"
-                className="text-text-muted hover:text-gold transition-colors duration-300"
+                className="text-text-muted hover:text-gold transition-colors duration-500"
                 aria-label="Facebook"
               >
-                <Facebook size={20} />
+                <Facebook size={20} strokeWidth={1.5} />
               </a>
               <a
                 href="#"
-                className="text-text-muted hover:text-gold transition-colors duration-300"
+                className="text-text-muted hover:text-gold transition-colors duration-500"
                 aria-label="LinkedIn"
               >
-                <Linkedin size={20} />
+                <Linkedin size={20} strokeWidth={1.5} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 tracking-wide">Quick Links</h4>
+            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Links</h4>
             <ul className="space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-text-muted hover:text-gold transition-colors duration-300 text-sm"
+                    className="text-text-muted hover:text-gold transition-colors duration-500 text-sm font-light"
                   >
                     {link.label}
                   </a>
@@ -68,29 +68,29 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-medium mb-6 tracking-wide">Contact</h4>
+            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-gold mt-0.5 shrink-0" />
-                <span className="text-text-muted text-sm">
+                <MapPin size={16} className="text-gold mt-0.5 shrink-0" strokeWidth={1.5} />
+                <span className="text-text-muted text-sm font-light">
                   123 Luxury Lane<br />
-                  Prestige District, NY 10001
+                  Prestige District
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={18} className="text-gold shrink-0" />
+                <Phone size={16} className="text-gold shrink-0" strokeWidth={1.5} />
                 <a
                   href="tel:+15551234567"
-                  className="text-text-muted hover:text-gold transition-colors duration-300 text-sm"
+                  className="text-text-muted hover:text-gold transition-colors duration-500 text-sm font-light"
                 >
                   +1 (555) 123-4567
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={18} className="text-gold shrink-0" />
+                <Mail size={16} className="text-gold shrink-0" strokeWidth={1.5} />
                 <a
                   href="mailto:concierge@serenityheights.com"
-                  className="text-text-muted hover:text-gold transition-colors duration-300 text-sm"
+                  className="text-text-muted hover:text-gold transition-colors duration-500 text-sm font-light"
                 >
                   concierge@serenityheights.com
                 </a>
@@ -100,15 +100,15 @@ export function Footer() {
 
           {/* Hours */}
           <div>
-            <h4 className="text-white font-medium mb-6 tracking-wide">Showroom Hours</h4>
-            <ul className="space-y-2 text-sm text-text-muted">
+            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Hours</h4>
+            <ul className="space-y-2 text-sm text-text-muted font-light">
               <li className="flex justify-between">
-                <span>Monday - Friday</span>
-                <span>9:00 AM - 7:00 PM</span>
+                <span>Mon - Fri</span>
+                <span>9AM - 7PM</span>
               </li>
               <li className="flex justify-between">
                 <span>Saturday</span>
-                <span>10:00 AM - 5:00 PM</span>
+                <span>10AM - 5PM</span>
               </li>
               <li className="flex justify-between">
                 <span>Sunday</span>
@@ -119,16 +119,16 @@ export function Footer() {
         </motion.div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-text-muted text-sm">
-            &copy; {currentYear} {SITE_NAME}. All rights reserved.
+        <div className="mt-12 pt-6 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-text-muted text-sm font-light">
+            &copy; {currentYear} {SITE_NAME}
           </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-text-muted hover:text-gold transition-colors duration-300">
-              Privacy Policy
+          <div className="flex gap-6 text-sm font-light">
+            <a href="#" className="text-text-muted hover:text-gold transition-colors duration-500">
+              Privacy
             </a>
-            <a href="#" className="text-text-muted hover:text-gold transition-colors duration-300">
-              Terms of Service
+            <a href="#" className="text-text-muted hover:text-gold transition-colors duration-500">
+              Terms
             </a>
           </div>
         </div>

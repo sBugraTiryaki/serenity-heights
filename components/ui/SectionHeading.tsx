@@ -24,13 +24,13 @@ export function SectionHeading({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
+      viewport={{ once: false, amount: 0.3 }}
       className={`flex flex-col ${alignmentClasses}`}
     >
       {preTitle && (
         <motion.p
           variants={fadeInUp}
-          className="text-xs md:text-sm uppercase tracking-[0.3em] text-gold font-medium mb-4"
+          className="text-sm uppercase tracking-[0.4em] text-gold font-light mb-6"
         >
           {preTitle}
         </motion.p>
@@ -38,7 +38,7 @@ export function SectionHeading({
 
       <motion.h2
         variants={fadeInUp}
-        className={`font-serif text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight ${
+        className={`font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight ${
           light ? 'text-luxury-black' : 'text-white'
         }`}
       >
@@ -47,13 +47,13 @@ export function SectionHeading({
 
       <motion.div
         variants={lineReveal}
-        className="h-[2px] w-16 bg-gold mt-6"
+        className="h-[1px] w-20 bg-gold mt-10"
       />
 
       {description && (
         <motion.p
           variants={fadeInUp}
-          className={`mt-6 text-lg md:text-xl leading-relaxed max-w-2xl ${
+          className={`mt-10 text-xl md:text-2xl leading-relaxed max-w-2xl font-light ${
             light ? 'text-luxury-charcoal' : 'text-text-muted'
           }`}
         >
