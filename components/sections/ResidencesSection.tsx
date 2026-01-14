@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { FloorMarker } from '@/components/ui/FloorMarker';
 import { ResidenceModal } from '@/components/ui/ResidenceModal';
@@ -107,7 +107,7 @@ export function ResidencesSection() {
 }
 
 // Small indicator showing current floor type
-function FloorIndicator({ scrollProgress }: { scrollProgress: ReturnType<typeof useTransform> }) {
+function FloorIndicator({ scrollProgress }: { scrollProgress: MotionValue<number> }) {
   const labels = ['Penthouse', 'Residence', 'Suite'];
 
   // Determine active index based on scroll
@@ -136,7 +136,7 @@ function FloorIndicatorItem({
 }: {
   label: string;
   index: number;
-  scrollProgress: ReturnType<typeof useTransform>;
+  scrollProgress: MotionValue<number>;
 }) {
   const segmentSize = 1 / 3;
   const start = index * segmentSize;
