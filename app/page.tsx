@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { OverviewSection } from '@/components/sections/OverviewSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { GallerySection } from '@/components/sections/GallerySection';
 import { ResidencesSection } from '@/components/sections/ResidencesSection';
@@ -13,6 +14,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <OverviewSection />
         <FeaturesSection />
         <GallerySection />
         <ResidencesSection />
