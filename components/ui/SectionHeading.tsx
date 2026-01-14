@@ -38,7 +38,7 @@ export function SectionHeading({
 
       <motion.h2
         variants={fadeInUp}
-        className={`font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight ${
+        className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight ${
           light ? 'text-luxury-black' : 'text-white'
         }`}
       >

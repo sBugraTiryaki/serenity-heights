@@ -2,13 +2,25 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion, PanInfo } from 'framer-motion';
 import { GalleryNav } from '@/components/ui/GalleryNav';
 import { Lightbox } from '@/components/ui/Lightbox';
 import { GALLERY_IMAGES } from '@/lib/constants';
 
 const AUTOPLAY_DURATION = 5000; // 5 seconds per slide
 const TOTAL_IMAGES = GALLERY_IMAGES.length;
+
+// Swipe thresholds for premium feel
+const SWIPE_VELOCITY_THRESHOLD = 500; // Fast swipe = instant slide change
+const SWIPE_DISTANCE_THRESHOLD = 50; // Minimum drag distance
+
+// Luxury spring physics for smooth animations
+const luxurySpring = {
+  type: 'spring' as const,
+  stiffness: 300,
+  damping: 30,
+  mass: 0.8,
+};
 
 // Horizontal slide variants - smooth transitions
 const slideVariants = {
@@ -40,11 +52,25 @@ export function GallerySection() {
   const [progress, setProgress] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Reduced motion preference
+  const prefersReducedMotion = useReducedMotion();
 
   // Swipe/scroll tracking
   const lastScrollTime = useRef(0);
   const accumulatedDeltaX = useRef(0);
   const lastSlideChangeTime = useRef(0);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
 
   // Track if section is in view for autoplay
@@ -144,6 +170,59 @@ export function GallerySection() {
     setActiveIndex(index);
   }, [activeIndex]);
 
+  // Track if user is dragging to prevent tap from firing
+  const isDragging = useRef(false);
+
+  // Mobile touch swipe handler
+  const handleDragEnd = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const { offset, velocity } = info;
+
+    // Check if this was actually a drag or just a tap
+    const wasDragged = Math.abs(offset.x) > 10 || Math.abs(offset.y) > 10;
+    isDragging.current = wasDragged;
+
+    // Fast velocity = instant slide change (premium feel)
+    if (Math.abs(velocity.x) > SWIPE_VELOCITY_THRESHOLD) {
+      if (velocity.x > 0 && activeIndex > 0) {
+        // Swipe right = previous
+        setDirection(-1);
+        setActiveIndex((prev) => prev - 1);
+      } else if (velocity.x < 0 && activeIndex < TOTAL_IMAGES - 1) {
+        // Swipe left = next
+        setDirection(1);
+        setActiveIndex((prev) => prev + 1);
+      }
+      setProgress(0);
+      setIsPlaying(true);
+      return;
+    }
+
+    // Distance-based detection for slower swipes
+    if (Math.abs(offset.x) > SWIPE_DISTANCE_THRESHOLD) {
+      if (offset.x > 0 && activeIndex > 0) {
+        setDirection(-1);
+        setActiveIndex((prev) => prev - 1);
+      } else if (offset.x < 0 && activeIndex < TOTAL_IMAGES - 1) {
+        setDirection(1);
+        setActiveIndex((prev) => prev + 1);
+      }
+      setProgress(0);
+    }
+    setIsPlaying(true);
+  }, [activeIndex]);
+
+  // Handle tap to open lightbox (only if not dragging)
+  const handleTap = useCallback(() => {
+    // Small delay to check if drag just ended
+    setTimeout(() => {
+      if (!isDragging.current) {
+        setLightboxOpen(true);
+        setIsPlaying(false);
+      }
+      isDragging.current = false;
+    }, 50);
+  }, []);
+
   // Horizontal scroll/swipe handler for trackpad
   const handleWheel = useCallback((e: WheelEvent) => {
     // Only handle horizontal scroll (trackpad swipe)
@@ -209,27 +288,42 @@ export function GallerySection() {
   return (
     <>
       {/* Tall container - scroll "goes to waste" here, section stays visible longer */}
-      <div ref={containerRef} className="relative h-[150vh]" id="gallery">
+      <div ref={containerRef} className="relative h-[150dvh]" id="gallery">
         {/* Sticky inner container - stays on screen while user scrolls */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-luxury-black">
-          {/* Section Title - Top */}
+        <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-luxury-black">
+          {/* Section Title - Top (hidden on mobile) */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute top-16 left-0 right-0 z-20 text-center"
+            className="absolute top-16 left-0 right-0 z-20 text-center hidden md:block"
           >
             <p className="text-sm uppercase tracking-[0.4em] text-gold font-light mb-4">
               Gallery
             </p>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-light">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-light">
               Visual Journey
             </h2>
           </motion.div>
 
-          {/* Horizontal Slideshow Container */}
-          <div className="absolute inset-0 w-full h-full">
+          {/* Horizontal Slideshow Container with Touch Swipe */}
+          <motion.div
+            className="absolute inset-0 w-full h-full cursor-pointer"
+            style={{ touchAction: 'pan-y pinch-zoom' }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            dragMomentum={false}
+            onDragStart={() => {
+              isDragging.current = true;
+              setIsPlaying(false);
+            }}
+            onDragEnd={handleDragEnd}
+            onTap={handleTap}
+            whileDrag={{ cursor: 'grabbing' }}
+            transition={luxurySpring}
+          >
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
                 key={activeIndex}
@@ -241,35 +335,43 @@ export function GallerySection() {
                 transition={slideTransition}
                 className="absolute inset-0"
               >
-                {/* Ken Burns effect */}
-                <motion.div
-                  animate={{ scale: [1, 1.08] }}
-                  transition={{ duration: 15, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-                  className="absolute inset-0"
-                >
+                {/* Ken Burns effect - disabled on mobile for performance */}
+                {!isMobile && !prefersReducedMotion ? (
+                  <motion.div
+                    animate={{ scale: [1, 1.08] }}
+                    transition={{ duration: 15, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={currentImage.src}
+                      alt={currentImage.alt}
+                      fill
+                      priority
+                      quality={90}
+                      className="object-cover"
+                      sizes="100vw"
+                    />
+                  </motion.div>
+                ) : (
                   <Image
                     src={currentImage.src}
                     alt={currentImage.alt}
                     fill
                     priority
                     quality={90}
-                    className="object-cover cursor-pointer"
+                    className="object-cover"
                     sizes="100vw"
-                    onClick={handleImageClick}
                   />
-                </motion.div>
+                )}
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
           {/* Gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-b from-luxury-black/60 via-transparent to-luxury-black/80 z-10 pointer-events-none" />
 
-          {/* Image Label - Center */}
-          <div
-            className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"
-            onClick={handleImageClick}
-          >
+          {/* Image Label - Center (pointer-events-none to allow swipe through) */}
+          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
@@ -283,7 +385,7 @@ export function GallerySection() {
                   {currentImage.alt}
                 </p>
                 <p className="text-white/50 text-sm mt-3 font-light">
-                  Click to expand
+                  Tap to expand
                 </p>
               </motion.div>
             </AnimatePresence>

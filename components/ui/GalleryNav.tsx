@@ -36,7 +36,7 @@ export function GalleryNav({
             <button
               key={index}
               onClick={() => onDotClick(index)}
-              className="relative cursor-pointer group"
+              className="relative cursor-pointer group p-3 -m-3"
               aria-label={`Go to slide ${index + 1}`}
             >
               {/* Container that morphs from dot to bar */}
@@ -68,7 +68,7 @@ export function GalleryNav({
       {/* Play/Pause Button */}
       <button
         onClick={onTogglePlay}
-        className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 transition-colors duration-300 cursor-pointer"
+        className="flex items-center justify-center w-12 h-12 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 transition-colors duration-300 cursor-pointer"
         aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
       >
         {isPlaying ? (

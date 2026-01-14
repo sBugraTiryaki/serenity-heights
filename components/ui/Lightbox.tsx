@@ -2,9 +2,20 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
 import type { GalleryImage } from '@/types';
+
+// Swipe thresholds for lightbox navigation
+const SWIPE_VELOCITY_THRESHOLD = 300;
+const SWIPE_DISTANCE_THRESHOLD = 100;
+
+// Luxury spring for smooth transitions
+const luxurySpring = {
+  type: 'spring' as const,
+  stiffness: 300,
+  damping: 30,
+};
 
 interface LightboxProps {
   images: GalleryImage[];
@@ -127,6 +138,34 @@ export function Lightbox({ images, activeIndex, isOpen, onClose, onNavigate }: L
     onClose();
   }, [onClose]);
 
+  // Handle swipe for image navigation (only when not zoomed)
+  const handleSwipeDragEnd = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (isZoomed) return;
+
+    const { offset, velocity } = info;
+
+    // Fast velocity = instant navigation
+    if (Math.abs(velocity.x) > SWIPE_VELOCITY_THRESHOLD) {
+      if (velocity.x > 0) {
+        // Swipe right = previous
+        onNavigate((activeIndex - 1 + images.length) % images.length);
+      } else {
+        // Swipe left = next
+        onNavigate((activeIndex + 1) % images.length);
+      }
+      return;
+    }
+
+    // Distance-based detection
+    if (Math.abs(offset.x) > SWIPE_DISTANCE_THRESHOLD) {
+      if (offset.x > 0) {
+        onNavigate((activeIndex - 1 + images.length) % images.length);
+      } else {
+        onNavigate((activeIndex + 1) % images.length);
+      }
+    }
+  }, [isZoomed, activeIndex, images.length, onNavigate]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -215,43 +254,54 @@ export function Lightbox({ images, activeIndex, isOpen, onClose, onNavigate }: L
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-full h-full flex items-center justify-center p-12"
+            className="relative z-10 w-full h-full flex items-center justify-center p-6 md:p-12"
             onClick={handleClose}
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="relative max-w-[90vw] max-h-[80vh] w-full h-full"
-                style={{
-                  cursor: isZoomed ? 'zoom-out' : 'zoom-in',
-                }}
-                onClick={handleImageClick}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                drag={isZoomed}
-                dragConstraints={{ left: -300, right: 300, top: -300, bottom: 300 }}
-                dragElastic={0.1}
-              >
+            {/* Swipe wrapper for navigation (only when not zoomed) */}
+            <motion.div
+              className="relative max-w-[90vw] max-h-[80vh] w-full h-full touch-pan-y"
+              drag={!isZoomed ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.3}
+              dragMomentum={false}
+              onDragEnd={handleSwipeDragEnd}
+              transition={luxurySpring}
+            >
+              <AnimatePresence mode="wait">
                 <motion.div
-                  animate={{ scale, x: position.x, y: position.y }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 0 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                   className="relative w-full h-full"
+                  style={{
+                    cursor: isZoomed ? 'zoom-out' : 'zoom-in',
+                  }}
+                  onClick={handleImageClick}
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  drag={isZoomed}
+                  dragConstraints={{ left: -300, right: 300, top: -300, bottom: 300 }}
+                  dragElastic={0.1}
                 >
-                  <Image
-                    src={currentImage.src}
-                    alt={currentImage.alt}
-                    fill
-                    className="object-contain pointer-events-none"
-                    sizes="100vw"
-                    priority
-                  />
+                  <motion.div
+                    animate={{ scale, x: position.x, y: position.y }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={currentImage.src}
+                      alt={currentImage.alt}
+                      fill
+                      className="object-contain pointer-events-none"
+                      sizes="100vw"
+                      priority
+                    />
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </AnimatePresence>
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
 
           {/* Image counter */}

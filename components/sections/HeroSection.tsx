@@ -76,9 +76,9 @@ export function HeroSection() {
   const textOpacityTransforms = [text1Opacity, text2Opacity, text3Opacity];
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[300dvh]">
       {/* Sticky Container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         {/* Slide 1 - Building Exterior */}
         <motion.div
           style={{ opacity: slide1Opacity, scale: slide1Scale }}
