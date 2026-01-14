@@ -296,3 +296,29 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* ===== Scroll Snap for Gallery ===== */
+.snap-y-mandatory {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-always {
+  scroll-snap-stop: always;
+}
+
+/* ===== Lightbox Styles ===== */
+.lightbox-zoomable {
+  cursor: zoom-in;
+}
+
+.lightbox-zoomed {
+  cursor: zoom-out;
+}
+
+.lightbox-dragging {
+  cursor: grabbing;
+}

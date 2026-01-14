@@ -1,26 +1,57 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 import { Button } from '@/components/ui/Button';
 
+// Section IDs where header should be transparent (image-heavy sections)
+const TRANSPARENT_SECTIONS = ['hero', 'gallery'];
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
+  const [isOverImageSection, setIsOverImageSection] = useState(true);
 
-  const backgroundColor = useTransform(
-    scrollY,
-    [0, 100],
-    ['rgba(12, 12, 12, 0)', 'rgba(12, 12, 12, 0.95)']
-  );
+  // Detect which section is at the top of viewport
+  useEffect(() => {
+    const checkCurrentSection = () => {
+      // Get header height for accurate detection
+      const headerHeight = 80;
 
-  const backdropBlur = useTransform(
-    scrollY,
-    [0, 100],
-    ['blur(0px)', 'blur(12px)']
-  );
+      // Check if we're at the very top (hero section)
+      if (window.scrollY < 100) {
+        setIsOverImageSection(true);
+        return;
+      }
+
+      // Check each transparent section
+      for (const sectionId of TRANSPARENT_SECTIONS) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          // Section is considered "active" if it covers the header area
+          if (rect.top <= headerHeight && rect.bottom > headerHeight) {
+            setIsOverImageSection(true);
+            return;
+          }
+        }
+      }
+
+      // Not over any image section
+      setIsOverImageSection(false);
+    };
+
+    // Initial check
+    checkCurrentSection();
+
+    // Listen to scroll
+    window.addEventListener('scroll', checkCurrentSection, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', checkCurrentSection);
+    };
+  }, []);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -37,8 +68,14 @@ export function Header() {
   return (
     <>
       <motion.header
-        style={{ backgroundColor, backdropFilter: backdropBlur }}
-        className="fixed top-0 left-0 right-0 z-50 px-6 py-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-500 ${
+          isOverImageSection
+            ? 'bg-transparent'
+            : 'bg-luxury-black/95 backdrop-blur-md'
+        }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between">
           {/* Logo */}
