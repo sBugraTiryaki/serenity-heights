@@ -11,16 +11,16 @@ import {
   ShoppingBag,
   TreePine
 } from 'lucide-react';
-import { Feature, FloorPlan, LocationHighlight, NavigationLink } from '@/types';
+import { Feature, FloorPlan, LocationHighlight, NavigationLink, Residence, FloorPosition } from '@/types';
 
 export const SITE_NAME = 'Serenity Heights';
 export const SITE_TAGLINE = 'Where elegance finds its home.';
 
 export const NAV_LINKS: NavigationLink[] = [
-  { label: 'Residences', href: '#features' },
+  { label: 'Features', href: '#features' },
+  { label: 'Residences', href: '#residences' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Location', href: '#location' },
-  { label: 'Floor Plans', href: '#floor-plans' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -103,6 +103,50 @@ export const FLOOR_PLANS: FloorPlan[] = [
     bathrooms: 5,
     price: 'From $4.5M',
   },
+];
+
+// Interactive building residences (3 types only)
+export const RESIDENCES: Residence[] = [
+  {
+    id: 'penthouse',
+    name: 'The Penthouse',
+    floorPlanImage: '/images/floor-plans/penthouse-floorplan.png',
+    sqft: '5,200 sq ft',
+    bedrooms: 4,
+    bathrooms: 5,
+    price: 'From $4.5M',
+    floors: '23-25',
+    description: 'The crown jewel of Serenity Heights. Spanning three floors with panoramic city views, private terrace, and bespoke finishes throughout.',
+  },
+  {
+    id: 'residence',
+    name: 'The Residence',
+    floorPlanImage: '/images/floor-plans/residance-floorplan.png',
+    sqft: '2,800 sq ft',
+    bedrooms: 3,
+    bathrooms: 3,
+    price: 'From $2.4M',
+    floors: '10-22',
+    description: 'Sophisticated urban living with thoughtful layouts, floor-to-ceiling windows and premium amenities.',
+  },
+  {
+    id: 'suite',
+    name: 'The Suite',
+    floorPlanImage: '/images/floor-plans/suite-floorplan.png',
+    sqft: '1,800 sq ft',
+    bedrooms: 2,
+    bathrooms: 2,
+    price: 'From $1.2M',
+    floors: '5-9',
+    description: 'Elegant efficiency in a refined setting. Perfect for professionals seeking luxury in a compact footprint.',
+  },
+];
+
+// Floor marker positions (% from top of building image) - only 1 visible at a time
+export const FLOOR_POSITIONS: FloorPosition[] = [
+  { id: 'penthouse', top: 18, label: 'Penthouse' },
+  { id: 'residence', top: 45, label: 'Residence' },
+  { id: 'suite', top: 72, label: 'Suite' },
 ];
 
 export const LOCATION_HIGHLIGHTS: LocationHighlight[] = [

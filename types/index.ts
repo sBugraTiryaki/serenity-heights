@@ -24,6 +24,24 @@ export interface FloorPlan {
   price: string;
 }
 
+export interface Residence {
+  id: string;
+  name: string;
+  floorPlanImage: string;
+  sqft: string;
+  bedrooms: number;
+  bathrooms: number;
+  price: string;
+  floors: string;
+  description: string;
+}
+
+export interface FloorPosition {
+  id: string;
+  top: number;
+  label: string;
+}
+
 export interface LocationHighlight {
   id: string;
   name: string;

@@ -3,8 +3,8 @@ import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { GallerySection } from '@/components/sections/GallerySection';
+import { ResidencesSection } from '@/components/sections/ResidencesSection';
 import { LocationSection } from '@/components/sections/LocationSection';
-import { FloorPlansSection } from '@/components/sections/FloorPlansSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 
 export default function Home() {
@@ -15,8 +15,8 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <GallerySection />
+        <ResidencesSection />
         <LocationSection />
-        <FloorPlansSection />
         <ContactSection />
       </main>
       <Footer />
