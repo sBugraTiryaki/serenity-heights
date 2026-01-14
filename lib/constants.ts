@@ -17,11 +17,10 @@ export const SITE_NAME = 'Serenity Heights';
 export const SITE_TAGLINE = 'Where elegance finds its home.';
 
 export const NAV_LINKS: NavigationLink[] = [
-  { label: 'Features', href: '#features' },
   { label: 'Residences', href: '#residences' },
+  { label: 'Features', href: '#features' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Location', href: '#location' },
-  { label: 'Contact', href: '#contact' },
 ];
 
 export const FEATURES: Feature[] = [

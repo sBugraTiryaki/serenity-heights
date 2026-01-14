@@ -200,7 +200,7 @@ export function HeroSection() {
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
                   className="mt-12"
                 >
-                  <Button variant="elegant" size="lg">
+                  <Button size="lg">
                     Schedule Private Viewing
                   </Button>
                 </motion.div>
