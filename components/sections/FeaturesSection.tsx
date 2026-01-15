@@ -142,7 +142,6 @@ export function FeaturesSection() {
               image={feature.image}
               index={index}
               size={BENTO_CONFIG[index]?.size || 'small'}
-              className={BENTO_CONFIG[index]?.className}
             />
           ))}
         </div>
