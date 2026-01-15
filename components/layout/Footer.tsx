@@ -122,7 +122,15 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-text-muted text-sm font-light">
-            &copy; {currentYear} {SITE_NAME}
+            &copy; {currentYear} {SITE_NAME}. Designed by{' '}
+            <a
+              href="https://bugratiryaki.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold hover:text-white transition-colors duration-500"
+            >
+              Bugra Tiryaki
+            </a>
           </p>
           <div className="flex gap-6 text-sm font-light">
             <a href="#" className="text-text-muted hover:text-gold transition-colors duration-500">
