@@ -11,13 +11,13 @@ export function Footer() {
 
   return (
     <footer className="bg-luxury-darker border-t border-gold/10">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-8 lg:px-12 py-20 lg:py-28">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={fadeInUp}
-          className="grid gap-12 lg:grid-cols-4"
+          className="grid gap-16 lg:grid-cols-4 lg:gap-20"
         >
           {/* Brand Column */}
           <div className="lg:col-span-1">
@@ -52,8 +52,8 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Links</h4>
-            <ul className="space-y-3">
+            <h4 className="text-white font-serif text-base mb-8 font-light tracking-wide">Links</h4>
+            <ul className="space-y-4">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
@@ -69,8 +69,8 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Contact</h4>
-            <ul className="space-y-4">
+            <h4 className="text-white font-serif text-base mb-8 font-light tracking-wide">Contact</h4>
+            <ul className="space-y-5">
               <li className="flex items-start gap-3">
                 <LocationPinIcon size={18} className="text-gold mt-0.5 shrink-0" />
                 <span className="text-text-muted text-sm font-light">
@@ -101,8 +101,8 @@ export function Footer() {
 
           {/* Hours */}
           <div>
-            <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Hours</h4>
-            <ul className="space-y-2 text-sm text-text-muted font-light">
+            <h4 className="text-white font-serif text-base mb-8 font-light tracking-wide">Hours</h4>
+            <ul className="space-y-3 text-sm text-text-muted font-light">
               <li className="flex justify-between">
                 <span>Mon - Fri</span>
                 <span>9AM - 7PM</span>
@@ -120,7 +120,7 @@ export function Footer() {
         </motion.div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-16 pt-8 border-t border-gold/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-text-muted text-sm font-light">
             &copy; {currentYear} {SITE_NAME}
           </p>

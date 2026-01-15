@@ -297,7 +297,7 @@ export function GallerySection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute top-16 left-0 right-0 z-20 text-center hidden md:block"
+            className="absolute top-20 left-0 right-0 z-20 text-center hidden md:block"
           >
             <p className="text-sm uppercase tracking-[0.4em] text-gold font-light mb-4">
               Gallery

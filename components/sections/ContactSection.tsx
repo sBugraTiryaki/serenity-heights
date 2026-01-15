@@ -26,9 +26,9 @@ export function ContactSection() {
   const yRight = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={sectionRef} id="contact" className="section-primary py-32 lg:py-48 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20 perspective-container">
+    <section ref={sectionRef} id="contact" className="section-primary py-40 lg:py-64 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+        <div className="grid gap-20 lg:grid-cols-2 lg:gap-32 perspective-container">
           {/* Contact Information */}
           <motion.div
             variants={fadeInLeft}
@@ -43,13 +43,13 @@ export function ContactSection() {
               align="left"
             />
 
-            <div className="mt-12 space-y-6">
+            <div className="mt-16 space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.1, duration: 0.8 }}
-                className="flex items-center gap-5 group"
+                className="flex items-center gap-6 group"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
                   <PhoneIcon size={26} />
@@ -70,7 +70,7 @@ export function ContactSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="flex items-center gap-5 group"
+                className="flex items-center gap-6 group"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
                   <MailIcon size={26} />
@@ -91,7 +91,7 @@ export function ContactSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="flex items-center gap-5 group"
+                className="flex items-center gap-6 group"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
                   <AddressIcon size={26} />
@@ -109,7 +109,7 @@ export function ContactSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{ delay: 0.4, duration: 0.8 }}
-                className="flex items-center gap-5 group"
+                className="flex items-center gap-6 group"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
                   <ClockIcon size={26} />
@@ -133,7 +133,7 @@ export function ContactSection() {
             style={{ y: yRight }}
             className="card-3d"
           >
-            <form className="space-y-6 bg-luxury-charcoal/50 p-8 rounded-lg border border-gold/10">
+            <form className="space-y-8 bg-luxury-charcoal/50 p-10 lg:p-12 rounded-lg border border-gold/10">
               <div className="grid gap-6 md:grid-cols-2">
                 <Input label="First Name" name="firstName" required />
                 <Input label="Last Name" name="lastName" required />

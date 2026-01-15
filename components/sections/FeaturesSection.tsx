@@ -53,14 +53,14 @@ function AmenityCard({ title, description, icon: Icon, image, index }: AmenityCa
       )}
 
       {/* Default State - Minimal with Border */}
-      <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-10
+      <div className="relative z-10 h-full flex flex-col justify-end p-10 md:p-12
                       border border-gold/10 group-hover:border-gold/30
                       bg-luxury-dark/20 group-hover:bg-transparent
                       transition-all duration-700">
 
         {/* Index Number - Elegant positioning */}
         <motion.span
-          className="absolute top-6 right-8 font-serif text-5xl md:text-6xl text-white/[0.03]
+          className="absolute top-8 right-10 font-serif text-5xl md:text-6xl text-white/[0.03]
                      group-hover:text-white/[0.08] transition-colors duration-700
                      tracking-tight"
           animate={{ opacity: isHovered ? 0.15 : 1 }}
@@ -70,7 +70,7 @@ function AmenityCard({ title, description, icon: Icon, image, index }: AmenityCa
 
         {/* Icon - Minimal, top-left */}
         <motion.div
-          className="absolute top-6 left-8 text-gold/50 group-hover:text-gold/80
+          className="absolute top-8 left-10 text-gold/50 group-hover:text-gold/80
                      transition-all duration-500"
           animate={{
             opacity: isHovered ? 0.6 : 1,
@@ -216,15 +216,15 @@ export function FeaturesSection() {
   // Mobile layout - vertical stack
   if (isMobile) {
     return (
-      <section id="features" className="section-secondary py-24 overflow-hidden">
-        <div className="px-6">
+      <section id="features" className="section-secondary py-32 overflow-hidden">
+        <div className="px-8">
           <SectionHeading
             preTitle="Amenities"
             title="Exceptional Living"
             align="left"
           />
 
-          <div className="mt-16 space-y-4">
+          <div className="mt-20 space-y-5">
             {FEATURES.map((feature, index) => (
               <MobileAmenityCard
                 key={feature.id}
@@ -252,7 +252,7 @@ export function FeaturesSection() {
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
 
         {/* Header */}
-        <div className="px-8 md:px-16 mb-12">
+        <div className="px-10 md:px-20 mb-16">
           <SectionHeading
             preTitle="Amenities"
             title="Exceptional Living"
@@ -262,7 +262,7 @@ export function FeaturesSection() {
 
         {/* Horizontal scroll track */}
         <motion.div
-          className="flex gap-6 md:gap-8 pl-8 md:pl-16"
+          className="flex gap-8 md:gap-10 pl-10 md:pl-20"
           style={{ x }}
         >
           {FEATURES.map((feature, index) => (
@@ -281,7 +281,7 @@ export function FeaturesSection() {
         </motion.div>
 
         {/* Progress indicator */}
-        <div className="absolute bottom-16 left-8 md:left-16 right-8 md:right-16">
+        <div className="absolute bottom-20 left-10 md:left-20 right-10 md:right-20">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs uppercase tracking-[0.3em] text-text-muted font-light">
               Scroll to explore

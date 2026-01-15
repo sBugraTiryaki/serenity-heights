@@ -46,9 +46,9 @@ export function OverviewSection() {
   const contentY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={sectionRef} id="overview" className="section-primary py-32 lg:py-48 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24 items-center">
+    <section ref={sectionRef} id="overview" className="section-primary py-40 lg:py-64 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+        <div className="grid gap-20 lg:grid-cols-2 lg:gap-32 items-center">
           {/* Content Side - Left */}
           <motion.div
             variants={fadeInLeft}
@@ -64,13 +64,13 @@ export function OverviewSection() {
               align="left"
             />
 
-            <p className="mt-8 text-lg text-text-muted leading-relaxed font-light">
+            <p className="mt-10 text-lg text-text-muted leading-relaxed font-light">
               Serenity Heights represents the pinnacle of urban luxury—a sanctuary where
               architectural mastery meets uncompromising craftsmanship. Every detail has been
               considered, every material thoughtfully selected.
             </p>
 
-            <div className="mt-14 space-y-6">
+            <div className="mt-20 space-y-8">
               {SIGNATURE_POINTS.map((item, index) => (
                 <motion.div
                   key={item.id}
@@ -78,7 +78,7 @@ export function OverviewSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: index * 0.1, duration: 0.8 }}
-                  className="flex items-start gap-5 group"
+                  className="flex items-start gap-6 group"
                 >
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40 mt-1">
                     <item.icon size={28} />

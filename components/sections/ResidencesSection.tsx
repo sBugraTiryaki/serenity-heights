@@ -36,7 +36,7 @@ export function ResidencesSection() {
           {/* Section Title */}
           <motion.div
             style={{ opacity: titleOpacity, y: titleY }}
-            className="absolute top-20 left-0 right-0 z-20 text-center px-6"
+            className="absolute top-24 left-0 right-0 z-20 text-center px-8"
           >
             <p className="text-sm uppercase tracking-[0.4em] text-gold font-light mb-4">
               Select Your

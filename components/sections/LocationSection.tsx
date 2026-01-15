@@ -19,9 +19,9 @@ export function LocationSection() {
   const contentY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={sectionRef} id="location" className="section-tertiary py-32 lg:py-48 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24 items-center">
+    <section ref={sectionRef} id="location" className="section-tertiary py-40 lg:py-64 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+        <div className="grid gap-20 lg:grid-cols-2 lg:gap-32 items-center">
           {/* Map/Image Side with Parallax */}
           <motion.div
             variants={fadeInLeft}
@@ -60,7 +60,7 @@ export function LocationSection() {
               align="left"
             />
 
-            <div className="mt-14 space-y-6">
+            <div className="mt-20 space-y-8">
               {LOCATION_HIGHLIGHTS.map((item, index) => (
                 <motion.div
                   key={item.id}
@@ -68,7 +68,7 @@ export function LocationSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: index * 0.1, duration: 0.8 }}
-                  className="flex items-center gap-5 group"
+                  className="flex items-center gap-6 group"
                 >
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
                     <item.icon size={28} />
