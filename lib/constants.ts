@@ -1,10 +1,8 @@
 import {
-  PoolIcon,
   CinemaIcon,
   WineIcon,
   WellnessIcon,
   ConciergeIcon,
-  SmartHomeIcon,
   GarageIcon,
   GardenIcon,
   DistrictIcon,
@@ -26,60 +24,46 @@ export const NAV_LINKS: NavigationLink[] = [
 
 export const FEATURES: Feature[] = [
   {
-    id: 'pool',
-    title: 'Infinity Pool',
-    description: 'Rooftop sanctuary above the skyline.',
-    icon: PoolIcon,
-    image: '/images/gallery/pool.png',
-  },
-  {
     id: 'cinema',
     title: 'Private Cinema',
     description: 'Cinematic excellence, redefined.',
     icon: CinemaIcon,
-    image: '/images/gallery/living.png',
+    image: '/images/amenities/cinema.png',
   },
   {
     id: 'wine',
     title: 'Wine Cellar',
     description: 'For the discerning palate.',
     icon: WineIcon,
-    image: '/images/gallery/kitchen.png',
+    image: '/images/amenities/cellar.png',
   },
   {
     id: 'fitness',
     title: 'Wellness Center',
     description: 'Elevate your well-being.',
     icon: WellnessIcon,
-    image: '/images/gallery/bathroom.png',
+    image: '/images/amenities/wellness.png',
   },
   {
     id: 'concierge',
     title: '24/7 Concierge',
     description: 'Every wish, fulfilled.',
     icon: ConciergeIcon,
-    image: '/images/gallery/view.png',
-  },
-  {
-    id: 'smart',
-    title: 'Smart Living',
-    description: 'Intuitive automation.',
-    icon: SmartHomeIcon,
-    image: '/images/gallery/bedroom.png',
+    image: '/images/amenities/lobby.png',
   },
   {
     id: 'parking',
     title: 'Private Garage',
     description: 'Secure. Electric-ready.',
     icon: GarageIcon,
-    image: '/images/gallery/living.png',
+    image: '/images/amenities/garage.png',
   },
   {
     id: 'terrace',
     title: 'Sky Gardens',
     description: 'Nature meets panorama.',
     icon: GardenIcon,
-    image: '/images/gallery/view.png',
+    image: '/images/amenities/rooftop.png',
   },
 ];
 

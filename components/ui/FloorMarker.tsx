@@ -16,14 +16,19 @@ export function FloorMarker({ floor, scrollProgress, onSelect, index, totalFloor
   // Her kat için scroll aralığı hesapla
   const segmentSize = 1 / totalFloors;
   const start = index * segmentSize;
-  const peak = start + segmentSize / 2;
   const end = start + segmentSize;
+  const peak = start + segmentSize / 2;
 
-  // Sadece kendi scroll aralığında görünür (1 tane visible)
+  // Son eleman (Suite) için daha uzun görünürlük
+  const isLast = index === totalFloors - 1;
+  const fadeInPoint = start + 0.02;
+  const fadeOutPoint = isLast ? end + 0.15 : end - 0.01;
+  const endPoint = isLast ? end + 0.2 : end;
+
   const opacity = useTransform(
     scrollProgress,
-    [start, peak - 0.05, peak, peak + 0.05, end],
-    [0, 0.5, 1, 0.5, 0]
+    [start, fadeInPoint, fadeOutPoint, endPoint],
+    [0, 1, 1, 0]
   );
 
   const scale = useTransform(
@@ -50,10 +55,10 @@ export function FloorMarker({ floor, scrollProgress, onSelect, index, totalFloor
       className="absolute -translate-x-1/2 flex flex-col items-center gap-2 group cursor-pointer z-30"
     >
       {/* + Button - görselin üzerinde ortalanmış */}
-      <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-gold/70 group-hover:border-gold
+      <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-gold group-hover:border-gold
                       flex items-center justify-center transition-all duration-300
-                      group-hover:bg-gold group-hover:scale-110 backdrop-blur-md bg-luxury-black/60 shadow-lg">
-        <Plus className="text-gold group-hover:text-luxury-black transition-colors" size={28} strokeWidth={1.5} />
+                      group-hover:bg-gold group-hover:scale-110 backdrop-blur-md bg-luxury-black/90 shadow-xl shadow-black/50">
+        <Plus className="text-gold group-hover:text-luxury-black transition-colors" size={28} strokeWidth={2} />
       </div>
 
       {/* Label - butonun altında */}

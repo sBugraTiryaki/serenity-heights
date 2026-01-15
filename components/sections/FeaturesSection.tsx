@@ -1,110 +1,107 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { FEATURES } from '@/lib/constants';
 
-interface AmenityCardProps {
+interface BentoCardProps {
   title: string;
   description: string;
   icon: React.ComponentType<{ size?: number; className?: string }>;
   image?: string;
   index: number;
+  size: 'large' | 'wide' | 'tall' | 'small';
+  className?: string;
 }
 
-function AmenityCard({ title, description, icon: Icon, image, index }: AmenityCardProps) {
+function BentoCard({ title, description, icon: Icon, image, index, size, className = '' }: BentoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const sizeClasses = {
+    large: 'col-span-2 row-span-2',     // 2x2 - büyük kare
+    wide: 'col-span-2 row-span-1',      // 2x1 - yatay dikdörtgen
+    tall: 'col-span-1 row-span-2',      // 1x2 - dikey dikdörtgen
+    small: 'col-span-1 row-span-1',     // 1x1 - küçük kare
+    medium: 'col-span-1 row-span-1',    // fallback
+  };
+
+  // Height handled by grid auto-rows
+  const heightClasses = {
+    large: '',
+    wide: '',
+    tall: '',
+    small: '',
+  };
 
   return (
     <motion.article
-      className="relative w-[85vw] md:w-[45vw] lg:w-[32vw] h-[55vh] md:h-[60vh] flex-shrink-0
-                 overflow-hidden cursor-pointer group"
-      initial={{ opacity: 0, x: 80 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      className={`relative overflow-hidden cursor-pointer group ${sizeClasses[size]} ${heightClasses[size]} ${className}`}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: '-50px' }}
-      transition={{ delay: index * 0.08, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      {/* Background Image - Revealed on Hover */}
+      {/* Background Image */}
       {image && (
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              className="absolute inset-0 z-0"
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                src={image}
-                alt={title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 85vw, (max-width: 1024px) 45vw, 32vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent" />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes={size === 'large' ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 25vw'}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent
+                          group-hover:via-luxury-black/30 transition-all duration-700" />
+        </div>
       )}
 
-      {/* Default State - Minimal with Border */}
-      <div className="relative z-10 h-full flex flex-col justify-end p-10 md:p-12
-                      border border-gold/10 group-hover:border-gold/30
-                      bg-luxury-dark/20 group-hover:bg-transparent
-                      transition-all duration-700">
+      {/* Fallback background */}
+      {!image && (
+        <div className="absolute inset-0 z-0 bg-luxury-charcoal border border-gold/10 group-hover:border-gold/20 transition-all duration-500" />
+      )}
 
-        {/* Index Number - Elegant positioning */}
-        <motion.span
-          className="absolute top-8 right-10 font-serif text-5xl md:text-6xl text-white/[0.03]
-                     group-hover:text-white/[0.08] transition-colors duration-700
-                     tracking-tight"
-          animate={{ opacity: isHovered ? 0.15 : 1 }}
-        >
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-8">
+        {/* Index Number */}
+        <span className="absolute top-6 right-6 font-serif text-4xl md:text-5xl text-white/10
+                         group-hover:text-white/20 transition-colors duration-500">
           0{index + 1}
-        </motion.span>
+        </span>
 
-        {/* Icon - Minimal, top-left */}
-        <motion.div
-          className="absolute top-8 left-10 text-gold/50 group-hover:text-gold/80
-                     transition-all duration-500"
-          animate={{
-            opacity: isHovered ? 0.6 : 1,
-            scale: isHovered ? 0.9 : 1
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          <Icon size={28} />
-        </motion.div>
+        {/* Icon */}
+        <div className="absolute top-6 left-6 text-gold/60 group-hover:text-gold transition-all duration-500">
+          <Icon size={size === 'large' ? 28 : size === 'small' ? 22 : 24} />
+        </div>
 
-        {/* Content */}
-        <div className="mt-auto">
+        {/* Text Content */}
+        <div>
           <motion.h3
-            className="font-serif text-2xl md:text-3xl text-white font-light tracking-wide"
-            animate={{ y: isHovered ? -8 : 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className={`font-serif text-white font-light tracking-wide ${
+              size === 'large' ? 'text-2xl md:text-3xl' : size === 'wide' || size === 'tall' ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'
+            }`}
+            animate={{ y: isHovered ? -4 : 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {title}
           </motion.h3>
 
-          <motion.p
-            className="mt-3 text-sm md:text-base text-text-muted font-light max-w-xs leading-relaxed"
-            animate={{ opacity: isHovered ? 1 : 0.7 }}
-            transition={{ duration: 0.5 }}
-          >
-            {description}
-          </motion.p>
+          {(size === 'wide' || size === 'large' || size === 'tall') && (
+            <p className="mt-2 text-sm text-white/60 group-hover:text-white/80 font-light leading-relaxed transition-colors duration-500">
+              {description}
+            </p>
+          )}
 
           {/* Gold line accent */}
           <motion.div
-            className="mt-6 h-[1px] bg-gradient-to-r from-gold/60 to-transparent"
-            initial={{ width: 40 }}
-            animate={{ width: isHovered ? 100 : 40 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-4 h-[1px] bg-gradient-to-r from-gold/50 to-transparent"
+            initial={{ width: 30 }}
+            animate={{ width: isHovered ? 60 : 30 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
       </div>
@@ -112,190 +109,42 @@ function AmenityCard({ title, description, icon: Icon, image, index }: AmenityCa
   );
 }
 
-// Mobile version - vertical stack with tap to expand
-function MobileAmenityCard({ title, description, icon: Icon, image, index }: AmenityCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <motion.article
-      className="relative w-full overflow-hidden cursor-pointer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-30px' }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      onClick={() => setIsExpanded(!isExpanded)}
-    >
-      <motion.div
-        className="relative border border-gold/10 bg-luxury-dark/20 overflow-hidden"
-        animate={{ height: isExpanded ? 320 : 120 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {/* Background Image when expanded */}
-        {image && (
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                className="absolute inset-0 z-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="object-cover"
-                  sizes="100vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/70 to-luxury-black/30" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        )}
-
-        <div className="relative z-10 p-6 h-full flex flex-col">
-          {/* Header row */}
-          <div className="flex items-center gap-4">
-            <div className="text-gold/60">
-              <Icon size={24} />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-serif text-xl text-white font-light tracking-wide">
-                {title}
-              </h3>
-            </div>
-            <span className="font-serif text-3xl text-white/5">
-              0{index + 1}
-            </span>
-          </div>
-
-          {/* Expanded content */}
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="mt-auto"
-              >
-                <p className="text-sm text-text-muted font-light leading-relaxed">
-                  {description}
-                </p>
-                <div className="mt-4 h-[1px] w-16 bg-gold/40" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
-    </motion.article>
-  );
-}
+// Asymmetric Bento Layout - 6 amenities
+// large (2x2), wide (2x1), tall (1x2), small (1x1)
+const BENTO_CONFIG: Array<{ size: 'large' | 'wide' | 'tall' | 'small' }> = [
+  { size: 'large' },      // 01 - Cinema (2x2)
+  { size: 'small' },      // 02 - Wine
+  { size: 'tall' },       // 03 - Wellness (1x2)
+  { size: 'tall' },       // 04 - Concierge (1x2)
+  { size: 'wide' },       // 05 - Garage (2x1)
+  { size: 'large' },      // 06 - Sky Gardens (2x2)
+];
 
 export function FeaturesSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  // Transform vertical scroll to horizontal movement
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-65%']);
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Mobile layout - vertical stack
-  if (isMobile) {
-    return (
-      <section id="features" className="section-secondary py-32 overflow-hidden">
-        <div className="px-8">
-          <SectionHeading
-            preTitle="Amenities"
-            title="Exceptional Living"
-            align="left"
-          />
-
-          <div className="mt-20 space-y-5">
-            {FEATURES.map((feature, index) => (
-              <MobileAmenityCard
-                key={feature.id}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                image={feature.image}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Desktop layout - horizontal scroll
   return (
-    <section
-      ref={containerRef}
-      id="features"
-      className="relative h-[280vh] section-secondary"
-    >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+    <section id="features" className="section-secondary py-32 md:py-40 lg:py-48">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+        {/* Section Header */}
+        <SectionHeading
+          preTitle="Amenities"
+          title="Exceptional Living"
+          align="center"
+        />
 
-        {/* Header */}
-        <div className="px-10 md:px-20 mb-16">
-          <SectionHeading
-            preTitle="Amenities"
-            title="Exceptional Living"
-            align="left"
-          />
-        </div>
-
-        {/* Horizontal scroll track */}
-        <motion.div
-          className="flex gap-8 md:gap-10 pl-10 md:pl-20"
-          style={{ x }}
-        >
+        {/* Asymmetric Bento Grid */}
+        <div className="mt-16 md:mt-20 lg:mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-[160px] md:auto-rows-[180px] grid-flow-dense">
           {FEATURES.map((feature, index) => (
-            <AmenityCard
+            <BentoCard
               key={feature.id}
               title={feature.title}
               description={feature.description}
               icon={feature.icon}
               image={feature.image}
               index={index}
+              size={BENTO_CONFIG[index]?.size || 'small'}
+              className={BENTO_CONFIG[index]?.className}
             />
           ))}
-
-          {/* End spacer */}
-          <div className="w-[10vw] flex-shrink-0" />
-        </motion.div>
-
-        {/* Progress indicator */}
-        <div className="absolute bottom-20 left-10 md:left-20 right-10 md:right-20">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs uppercase tracking-[0.3em] text-text-muted font-light">
-              Scroll to explore
-            </span>
-            <span className="text-xs text-text-muted font-light">
-              {FEATURES.length} Amenities
-            </span>
-          </div>
-          <div className="h-[1px] bg-gold/10 relative overflow-hidden">
-            <motion.div
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-gold/80 to-gold/40"
-              style={{ width: progressWidth }}
-            />
-          </div>
         </div>
       </div>
     </section>
