@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input, Textarea, Select } from '@/components/ui/Input';
 import { fadeInLeft, fadeInRight } from '@/lib/animations';
 import { FLOOR_PLANS } from '@/lib/constants';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { PhoneIcon, MailIcon, AddressIcon, ClockIcon } from '@/components/icons';
 
 const floorPlanOptions = FLOOR_PLANS.map((plan) => ({
   value: plan.id,
@@ -51,8 +51,8 @@ export function ContactSection() {
                 transition={{ delay: 0.1, duration: 0.8 }}
                 className="flex items-center gap-5 group"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20">
-                  <Phone size={20} strokeWidth={1.5} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
+                  <PhoneIcon size={26} />
                 </div>
                 <div>
                   <p className="text-xs text-text-muted uppercase tracking-wider">Phone</p>
@@ -72,8 +72,8 @@ export function ContactSection() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="flex items-center gap-5 group"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20">
-                  <Mail size={20} strokeWidth={1.5} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
+                  <MailIcon size={26} />
                 </div>
                 <div>
                   <p className="text-xs text-text-muted uppercase tracking-wider">Email</p>
@@ -93,8 +93,8 @@ export function ContactSection() {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 className="flex items-center gap-5 group"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20">
-                  <MapPin size={20} strokeWidth={1.5} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
+                  <AddressIcon size={26} />
                 </div>
                 <div>
                   <p className="text-xs text-text-muted uppercase tracking-wider">Address</p>
@@ -111,8 +111,8 @@ export function ContactSection() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="flex items-center gap-5 group"
               >
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20">
-                  <Clock size={20} strokeWidth={1.5} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
+                  <ClockIcon size={26} />
                 </div>
                 <div>
                   <p className="text-xs text-text-muted uppercase tracking-wider">Hours</p>

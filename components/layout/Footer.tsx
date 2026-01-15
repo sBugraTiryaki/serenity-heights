@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import { fadeInUp } from '@/lib/animations';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
-import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { Instagram, Facebook, Linkedin } from 'lucide-react';
+import { LocationPinIcon, PhoneIcon, MailIcon } from '@/components/icons';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -71,14 +72,14 @@ export function Footer() {
             <h4 className="text-white font-serif text-base mb-6 font-light tracking-wide">Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-gold mt-0.5 shrink-0" strokeWidth={1.5} />
+                <LocationPinIcon size={18} className="text-gold mt-0.5 shrink-0" />
                 <span className="text-text-muted text-sm font-light">
                   123 Luxury Lane<br />
                   Prestige District
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={16} className="text-gold shrink-0" strokeWidth={1.5} />
+                <PhoneIcon size={18} className="text-gold shrink-0" />
                 <a
                   href="tel:+15551234567"
                   className="text-text-muted hover:text-gold transition-colors duration-500 text-sm font-light"
@@ -87,7 +88,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={16} className="text-gold shrink-0" strokeWidth={1.5} />
+                <MailIcon size={18} className="text-gold shrink-0" />
                 <a
                   href="mailto:concierge@serenityheights.com"
                   className="text-text-muted hover:text-gold transition-colors duration-500 text-sm font-light"

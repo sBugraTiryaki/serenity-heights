@@ -5,30 +5,30 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { fadeInLeft, fadeInRight } from '@/lib/animations';
-import { Landmark, MapPin, Key, Calendar } from 'lucide-react';
+import { LandmarkIcon, LocationPinIcon, KeyIcon, CalendarIcon } from '@/components/icons';
 
 const SIGNATURE_POINTS = [
   {
     id: 'architect',
-    icon: Landmark,
+    icon: LandmarkIcon,
     title: 'World-Renowned Design',
     description: 'Crafted by Pritzker Prize-winning architects, blending timeless elegance with modern innovation.',
   },
   {
     id: 'location',
-    icon: MapPin,
+    icon: LocationPinIcon,
     title: 'Iconic Address',
     description: 'Rising at the heart of the city\'s most coveted neighborhood, steps from Central Park.',
   },
   {
     id: 'units',
-    icon: Key,
+    icon: KeyIcon,
     title: 'Limited Collection',
     description: 'Only 42 meticulously designed residences, ensuring exclusivity and privacy.',
   },
   {
     id: 'delivery',
-    icon: Calendar,
+    icon: CalendarIcon,
     title: 'Ready 2026',
     description: 'Anticipated completion Q4 2026. Private viewings now available by appointment.',
   },
@@ -80,8 +80,8 @@ export function OverviewSection() {
                   transition={{ delay: index * 0.1, duration: 0.8 }}
                   className="flex items-start gap-5 group"
                 >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20 group-hover:glow-gold mt-1">
-                    <item.icon size={22} strokeWidth={1.5} />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40 mt-1">
+                    <item.icon size={28} />
                   </div>
                   <div>
                     <p className="font-serif text-lg text-white font-light">{item.title}</p>

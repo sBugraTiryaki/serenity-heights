@@ -70,8 +70,8 @@ export function LocationSection() {
                   transition={{ delay: index * 0.1, duration: 0.8 }}
                   className="flex items-center gap-5 group"
                 >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold/20 group-hover:glow-gold">
-                    <item.icon size={22} strokeWidth={1.5} />
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold/20 text-gold transition-all duration-500 group-hover:border-gold/40">
+                    <item.icon size={28} />
                   </div>
                   <div>
                     <p className="font-serif text-lg text-white font-light">{item.name}</p>

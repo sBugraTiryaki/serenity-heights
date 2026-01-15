@@ -1,10 +1,19 @@
-import { LucideIcon } from 'lucide-react';
+import { ComponentType } from 'react';
+
+export interface IconProps {
+  size?: number;
+  className?: string;
+  strokeWidth?: number;
+}
+
+export type CustomIcon = ComponentType<IconProps>;
 
 export interface Feature {
   id: string;
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: CustomIcon;
+  image?: string;
 }
 
 export interface GalleryImage {
@@ -46,7 +55,7 @@ export interface LocationHighlight {
   id: string;
   name: string;
   distance: string;
-  icon: LucideIcon;
+  icon: CustomIcon;
 }
 
 export interface NavigationLink {
